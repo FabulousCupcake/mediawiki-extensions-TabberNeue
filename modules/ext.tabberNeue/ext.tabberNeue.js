@@ -431,6 +431,19 @@ class TabberBuilder {
 	}
 
 	/**
+	 * Sets the attributes of tab panel elements
+	 */
+	setTabpanelAttributes() {
+		const tabpanelAttributes = {
+			'aria-hidden': 'true'
+		};
+		for ( const tab of this.tablist.children ) {
+			const tabpanel = TabberAction.getTabpanel( tab );
+			Util.setAttributes( tabpanel, tabpanelAttributes );
+		}
+	}
+
+	/**
 	 * Get the active tab in init state
 	 *
 	 * @param {string} urlHash - The URL hash used to set the active tab.
@@ -462,6 +475,7 @@ class TabberBuilder {
 	async init( urlHash ) {
 		const activeTab = this.getActiveTab( urlHash );
 		this.setTabsAttributes();
+		this.setTabpanelAttributes();
 		await TabberAction.setActiveTab( activeTab );
 		TabberAction.updateHeaderOverflow( this.tablist );
 
