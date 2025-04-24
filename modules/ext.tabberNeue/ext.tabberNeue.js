@@ -130,7 +130,9 @@ class TabberAction {
 			const tabberEl = activeTabpanel.closest( '.tabber' );
 
 			const currentActiveTab = tabberEl.querySelector( ':scope > .tabber__header > .tabber__tabs > .tabber__tab[aria-selected="true"]' );
+			const currentActiveTabpanel = currentActiveTab && TabberAction.getTabpanel( currentActiveTab );
 
+			// Reset attributes of currently active tab and tabpanel
 			if ( currentActiveTab ) {
 				const currentActiveTabAttributes = {
 					tabindex: -1,
@@ -139,12 +141,21 @@ class TabberAction {
 				Util.setAttributes( currentActiveTab, currentActiveTabAttributes );
 			}
 
+			if ( currentActiveTabpanel ) {
+				const currentActiveTabpanelAttributes = {
+					hidden: ""
+				};
+				Util.setAttributes( currentActiveTabpanel, currentActiveTabpanelAttributes );
+			}
+
+			// Set attributes of the new active tab and tabpanel
 			const activeTabAttributes = {
 				tabindex: 0,
 				'aria-selected': 'true'
 			};
 
 			Util.setAttributes( activeTab, activeTabAttributes );
+			activeTabpanel.removeAttribute( "hidden" );
 			TabberAction.setActiveTabpanel( activeTabpanel );
 
 			resolve();
