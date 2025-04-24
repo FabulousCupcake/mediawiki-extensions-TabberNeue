@@ -140,9 +140,9 @@ class TabberAction {
 				};
 				Util.setAttributes( currentActiveTab, currentActiveTabAttributes );
 			}
-
 			if ( currentActiveTabpanel ) {
 				const currentActiveTabpanelAttributes = {
+					'aria-hidden': 'true',
 					hidden: ""
 				};
 				Util.setAttributes( currentActiveTabpanel, currentActiveTabpanelAttributes );
@@ -153,8 +153,12 @@ class TabberAction {
 				tabindex: 0,
 				'aria-selected': 'true'
 			};
+			const activeTabpanelAttributes = {
+				'aria-hidden': 'false'
+			};
 
 			Util.setAttributes( activeTab, activeTabAttributes );
+			Util.setAttributes( activeTabpanel, activeTabpanelAttributes );
 			activeTabpanel.removeAttribute( "hidden" );
 			TabberAction.setActiveTabpanel( activeTabpanel );
 
